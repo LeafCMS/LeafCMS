@@ -1,5 +1,6 @@
 <?php
 define('ROOT_DIR', dir(__FILE__));
+define('CONFIG_DIR', ROOT_DIR.'configs/');
 define('TEMPLATE_DIR', ROOT_DIR.'templates/');
 define('PLUGIN_DIR', ROOT_DIR.'plugins/');
 define('INCLUDE_DIR', ROOT_DIR.'includes/');

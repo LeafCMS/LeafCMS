@@ -1,38 +1,65 @@
 <?php
 define('ROOT_DIR', dir(__FILE__));
-define('CONFIG_DIR', ROOT_DIR.'configs/');
-define('TEMPLATE_DIR', ROOT_DIR.'templates/');
-define('PLUGIN_DIR', ROOT_DIR.'plugins/');
-define('INCLUDE_DIR', ROOT_DIR.'includes/');
+define('BRANCHES_DIR', ROOT_DIR.'/branches/');
+define('ASSETS_DIR', ROOT_DIR.'/assets');
+
+define('CONFIG_FILE', BRANCHES_DIR.'config.php');
 
 class Leaf {
   
+  public $output;
+  
+  protected $config;
+  
+  public function __construct() {
+    $this->config = include(CONFIG_FILE);
+  }
+  
   public function returnError($code) {
+    $message = 'Unknown Error'; // by default.
     switch($code) {
       case 404:
-        $message = "404 Error. The page could not be found!"; // @todo: set to config value later
-        $template = $this->getTemplate("error")->setBinding("message", $message);
-        return $template;
+        // Not Found.
+        $message = "404 Error. The page could not be found!"; // @todo: set to config value later;
+        break;
+      case 403:
+        // Access Denied.
+        $message = "403 Access Denied / Forbidden.";
+        break;
     }
+    $template = $this->getTemplate("error")->setBinding("message", $message);
+    return $template;
   }
   
   public function runPage($page) {
-    $config = include(CONFIG_DIR.'pages.php');
+    $config = $this->config;
     $output = '';
     if(isset($config['page_templates'][$page])) {
-      $output = $this->getTemplate($config['page_templates'][$page];
+      $this->output = $this->getTemplate($config['page_templates'][$page];
     }
     else {
       // return 404.
-      $html = $this->returnError('404');
+      $this->output = $this->returnError('404');
       return false; // error.
     }
-    $this->output = $output;
     return true;
   }
   
   public function runExtensions($extension='all') {
-  
+    $config = $this->config;
+    if($extension == 'all') {
+      // load all.
+      foreach($config['extensions'] as $extension) {
+        // include the file.
+        include($extension['file']);
+        // call the function.
+        call_user_func($extension['function']);
+      }
+    }
+    else {
+      include($config['extensions'][$extension]['file']);
+      call_user_func($config['extensions'][$extension]['function']);
+    }
   }
   
 }
@@ -45,7 +72,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 $leaf->runPage($page);
 $leaf->runExtensions();
 
-$html = $leaf->run();
+$html = $leaf->output;
 
 echo $html;
 ?>

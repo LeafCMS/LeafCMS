@@ -1,4 +1,10 @@
 <?php
+/*
+ * Copyright 2014 LeafCMS (Primary Developer(s): Matthew Gross)
+ * Description **
+ * Last Edit: December 11, 2014
+ */
+
 define('ROOT_DIR', dir(__FILE__));
 define('BRANCHES_DIR', ROOT_DIR.'/branches/');
 define('ASSETS_DIR', ROOT_DIR.'/assets');

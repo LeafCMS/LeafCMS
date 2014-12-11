@@ -14,6 +14,10 @@ define('ASSETS_DIR', ROOT_DIR.'/assets');
 
 define('CONFIG_FILE', BRANCHES_DIR.'config.php');
 
+/* Actual Class
+ * This defines all logic for the CMS
+ * Every request to the server uses this class!
+ */
 class Leaf {
   
   public $output;

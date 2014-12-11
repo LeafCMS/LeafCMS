@@ -27,7 +27,11 @@ class Leaf {
   public function __construct() {
     $this->config = include(CONFIG_FILE);
   }
-  
+
+  /* returnError(code)
+   * description = easily return an error (such as 404) to the user. helper function
+   * code = The error code id.
+   */
   public function returnError($code) {
     $message = 'Unknown Error'; // by default.
     switch($code) {

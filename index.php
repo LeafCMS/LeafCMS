@@ -5,6 +5,9 @@
  * Last Edit: December 11, 2014
  */
 
+/* Standard Definitions
+ * Description: We are defining all neccessary file paths for the script to use. These are defined in a global fashion
+ */
 define('ROOT_DIR', dir(__FILE__));
 define('BRANCHES_DIR', ROOT_DIR.'/branches/');
 define('ASSETS_DIR', ROOT_DIR.'/assets');

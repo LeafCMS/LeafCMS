@@ -11,6 +11,6 @@ function generateStart() {
 		"Don't sway away...",
 	),
 	$random = array_rand($sayings);
-	$app->setBinding('saying', $random);
+	$this->setBinding('saying', $random);
 	return true;
 }

@@ -8,7 +8,7 @@
 /* Standard Definitions
  * Description: We are defining all neccessary file paths for the script to use. These are defined in a global fashion
  */
-define('ROOT_DIR', dir(__FILE__));
+define('ROOT_DIR', dirname(__FILE__));
 define('BRANCHES_DIR', ROOT_DIR.'/branches/');
 define('ASSETS_DIR', ROOT_DIR.'/assets');
 
@@ -20,18 +20,19 @@ define('CONFIG_FILE', BRANCHES_DIR.'config.php');
  */
 class LeafCMS {
   
-  private $default_bindings = array(
-     "template_dir" => BRANCHES_DIR.'templates/',
-     "page_templates" => array(
-         "home" => "home",
-     ),
-  );
+  private $default_bindings;
 
   public $output;
   
   protected $config;
   
   public function __construct() {
+    $this->default_bindings = array(
+     "template_dir" => BRANCHES_DIR . 'templates/',
+     "page_templates" => array(
+         "home" => "home",
+      ),
+    );
     $this->config = include(CONFIG_FILE);
     // Set default bindings.
     $this->setDefaultBindings();
@@ -41,7 +42,9 @@ class LeafCMS {
     $default_bindings = $this->default_bindings;
     foreach($default_bindings as $k => $v) {
         if(!(isset($this->config[$k]))) {
-		$this->config[$k] = $v;
+          // wasn't set
+		      $this->config[$k] = $v;
+        }
     }
   }
 
@@ -54,7 +57,7 @@ class LeafCMS {
   public function setBinding($setting, $binding, $template = null) {
     if($template === null) // use output instead
       $template = $this->output;
-    return str_replace('>>'.$binding.'<<', $setting, $template);
+    return str_replace('~{'.$binding.'}~', $setting, $template);
   }
 
   /* returnError(code)
@@ -84,7 +87,7 @@ class LeafCMS {
     $config = $this->config;
     $output = '';
     if(isset($config['page_templates'][$page])) {
-      $this->output = $this->getTemplate($config['page_templates'][$page]);
+      $this->output = $this->getTemplate($config['page_templates'][$page]["template"]);
     }
     else {
       // return 404.
@@ -97,13 +100,15 @@ class LeafCMS {
   public function runExtensions($extension='all') {
     $config = $this->config;
     if($extension == 'all') {
-      // load all.
-      foreach($config['extensions'] as $extension) {
-        // remove .php if the user added it by mistake and include the file.
-        include(str_replace('.php', '', $extension['file']));
-        // call the function.
-        call_user_func($extension['function']);
-        return true;
+      if(isset($config['extensions'])) { // if extensions exist. if not; do nothing.
+        // load all.
+        foreach($config['extensions'] as $extension) {
+          // remove .php if the user added it by mistake and include the file.
+          include(str_replace('.php', '', $extension['file']).'.php');
+          // call the function.
+          call_user_func($extension['function']);
+          return true;
+        }
       }
     }
     else {

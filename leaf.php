@@ -1,9 +1,16 @@
 <?php
-/*
- * Copyright 2014 LeafCMS (Primary Developer(s): Matthew Gross, Kirk Morris)
- * Description **
- * Last Edit: December 11, 2014
- * License: MIT (see LICENSE file)
+/* 
+ * ------------------------------------------------------------------------------------------------------------------ *
+ * Copyright 2014 LeafCMS (Primary Developer(s): Matthew Gross, Kirk Morris)                                          *
+ * ------------------------------------------------------------------------------------------------------------------ *
+ * Description * LeafCMS (Lightweight, Easy and Friendly) is a simple CMS allowing creation of websites in static     *
+ * or dynamic ways. Although mentioned as a CMS (Content management system), the CMS can also be valued as a          *
+ * framework; as large logically-based websites can be developed using LeafCMS due to the availability of extensions. *
+ * All in all; whether your website is large or small, LeafCMS can power it.                                          *
+ * ------------------------------------------------------------------------------------------------------------------ *
+ * Last Edit: December 11, 2014                                                                                       *
+ * License: MIT (see LICENSE file)                                                                                    *
+ * ------------------------------------------------------------------------------------------------------------------ *
  */
 
 /* Standard Definitions

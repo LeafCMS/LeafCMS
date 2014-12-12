@@ -90,6 +90,7 @@ class LeafCMS {
     }
     $template = $this->getTemplate("error");
     $template = $this->setBinding("message", $message, $template);
+    $template = $this->setBinding("code", $code, $template);
     return $template;
   }
   

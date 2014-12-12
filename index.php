@@ -51,7 +51,9 @@ class LeafCMS {
     return file_get_contents($template);
   }
 
-  public function setBinding($template, $setting, $binding) {
+  public function setBinding($setting, $binding, $template = null) {
+    if($template === null) // use output instead
+      $template = $this->output;
     return str_replace('>>'.$binding.'<<', $setting, $template);
   }
 
@@ -64,10 +66,12 @@ class LeafCMS {
     switch($code) {
       case 404:
         // Not Found.
+        http_response_code(404);
         $message = "404 Error. The page could not be found!"; // @todo: set to config value later;
         break;
       case 403:
         // Access Denied.
+        http_response_code(403);
         $message = "403 Access Denied / Forbidden.";
         break;
     }
@@ -95,16 +99,19 @@ class LeafCMS {
     if($extension == 'all') {
       // load all.
       foreach($config['extensions'] as $extension) {
-        // include the file.
-        include($extension['file']);
+        // remove .php if the user added it by mistake and include the file.
+        include(str_replace('.php', '', $extension['file']));
         // call the function.
         call_user_func($extension['function']);
+        return true;
       }
     }
     else {
       include($config['extensions'][$extension]['file']);
       call_user_func($config['extensions'][$extension]['function']);
+      return true;
     }
+    return false;
   }
   
 }

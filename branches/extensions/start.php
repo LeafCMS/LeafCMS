@@ -3,14 +3,17 @@
  * BTW: We apologize for the really corny sayings; we have to generate comedic value somewhere... */
 
 function generateStart() {
+	global $leaf;
+
 	$sayings = array(
 		"Thanks for branching out!",
 		"Our CMS won't stump you!",
 		"Put a leaf on it!",
 		"Get Squirrely!",
 		"Don't sway away...",
-	),
-	$random = array_rand($sayings);
-	$this->setBinding('saying', $random);
+	);
+	$random = array_rand($sayings, 1);
+	$saying = $sayings[$random];
+	$leaf->setBinding('saying', $saying);
 	return true;
 }

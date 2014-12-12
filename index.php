@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2014 LeafCMS (Primary Developer(s): Matthew Gross)
+ * Copyright 2014 LeafCMS (Primary Developer(s): Matthew Gross, Kirk Morris)
  * Description **
  * Last Edit: December 11, 2014
  */

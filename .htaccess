@@ -1,0 +1,9 @@
+# START LeafCMS
+DirectoryIndex leaf.php
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^([a-zA-Z0-9_-]+)$ leaf.php?page=$1
+RewriteRule ^([a-zA-Z0-9_-]+)/$ leaf.php?page=$1
+</IfModule>
+# END LeafCMS

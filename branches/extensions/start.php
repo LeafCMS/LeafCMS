@@ -2,7 +2,7 @@
 /* This is a dummy extensions. It generates random sayings for the front page...
  * BTW: We apologize for the really corny sayings; we have to generate comedic value somewhere... */
 
-function generateStart() {
+return function() {
 	global $leaf;
 
 	$sayings = array(

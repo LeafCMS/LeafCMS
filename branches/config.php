@@ -15,24 +15,16 @@
  *
  */
 return array(
-	"page_templates" => array(
+	"branches" => array(
 		"home" => array(
 			"template" => "start", // Start template (this is a dummy value)
 			"bindings" => array(
 				"title" => "LeafCMS - WELCOME!",
 				"logo" => ASSETS_DIR.'img/logo.png',
 			),
-			"extensions" => array(
+			"roots" => array(
 				'startExtension',
 			),
-		),
-	),
-	"extensions" => array(
-		// all files for extensions SHOULD be placed in /branches/extensions/.
-		// the file by default is set to PHP. You don't need to add the extension
-		'startExtension' => array(
-			'file' => 'start',
-			'function' => 'generateStart',
-		),
-	),
+		)
+	)
 );

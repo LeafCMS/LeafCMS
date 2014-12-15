@@ -107,11 +107,15 @@ class LeafCMS {
     if(isset($config['page_templates'][$page])) {
       $page = $config['page_templates'][$page];
       $this->output = $this->getTemplate($page['template']);
-      foreach($page['bindings'] as $k => $v) {
-        $this->setBinding($k, $v);
+      if(isset($page['bindings'])) {
+      	foreach($page['bindings'] as $k => $v) {
+        	$this->setBinding($k, $v);
+      	}
       }
-      foreach($page['extensions'] as $extension) {
-        $this->runExtension($extension);
+      if(isset($page['extensions'])) {
+	      foreach($page['extensions'] as $extension) {
+	        $this->runExtension($extension);
+	      }
       }
     }
     else {
@@ -128,19 +132,18 @@ class LeafCMS {
     if($extension == 'all') {
       if(isset($config['extensions'])) { // if extensions exist. if not; do nothing.
         // load all.
-        foreach($config['extensions'] as $extension) {
+        $files = glob($extension_dir.'*.{php}', GLOB_BRACE);
+        foreach($files as $file) {
           // remove .php if the user added it by mistake and include the file.
-          include(str_replace('.php', '', $extension_dir.$extension['file']).'.php');
+          $returned = include($file);
           // call the function.
           // also, remove () if added in config by mistake.
-          call_user_func(str_replace('()', '', $extension['function']));
           return true;
         }
       }
     }
     else {
-      include($extension_dir.$config['extensions'][$extension]['file'].'.php');
-      call_user_func(str_replace('()', '', $config['extensions'][$extension]['function']));
+      $returned = include($extension_dir.$config['extensions'][$extension]['file'].'.php');
       return true;
     }
     return false;

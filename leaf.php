@@ -39,7 +39,7 @@ class LeafCMS {
   public function __construct() {
     $this->default_bindings = array(
      "template_dir" => BRANCHES_DIR . 'templates/',
-     "page_templates" => array(
+     "branches" => array(
          "home" => "home",
       ),
     );
@@ -104,8 +104,8 @@ class LeafCMS {
   public function runPage($page) {
     $config = $this->config;
     $output = '';
-    if(isset($config['page_templates'][$page])) {
-      $page = $config['page_templates'][$page];
+    if(isset($config['branches'][$page])) {
+      $page = $config['branches'][$page];
       $this->output = $this->getTemplate($page['template']);
       if(isset($page['bindings'])) {
       	foreach($page['bindings'] as $k => $v) {
@@ -126,8 +126,12 @@ class LeafCMS {
     return true;
   }
   
+  public function extensionExists() {
+  	
+  }
+  
   public function runExtension($extension='all') {
-    $extension_dir = BRANCHES_DIR.'extensions/';
+    $extension_dir = BRANCHES_DIR.'roots/';
     $config = $this->config;
     if($extension == 'all') {
       if(isset($config['extensions'])) { // if extensions exist. if not; do nothing.

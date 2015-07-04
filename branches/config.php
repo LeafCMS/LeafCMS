@@ -23,7 +23,7 @@ return array(
 				"logo" => ASSETS_DIR.'img/logo.png',
 			),
 			"roots" => array(
-				'startExtension',
+				'start',
 			),
 		)
 	)

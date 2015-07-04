@@ -112,8 +112,8 @@ class LeafCMS {
         	$this->setBinding($k, $v);
       	}
       }
-      if(isset($page['extensions'])) {
-	      foreach($page['extensions'] as $extension) {
+      if(isset($page['roots'])) {
+	      foreach($page['roots'] as $extension) {
 	        $this->runExtension($extension);
 	      }
       }
@@ -139,7 +139,7 @@ class LeafCMS {
         $files = glob($extension_dir.'*.{php}', GLOB_BRACE);
         foreach($files as $file) {
           // remove .php if the user added it by mistake and include the file.
-          $returned = include($file);
+          $returned = (include $file);
           // call the function.
           // also, remove () if added in config by mistake.
           return true;
@@ -147,7 +147,8 @@ class LeafCMS {
       }
     }
     else {
-      $returned = include($extension_dir.$config['extensions'][$extension]['file'].'.php');
+      $returned = (include $extension_dir.$extension.'.php');
+
       return true;
     }
     return false;
